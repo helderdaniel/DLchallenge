@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+About
+{% endblock %}
+
+{% block content %}
+<br>
+<h2>The Machine Learning classifier challenge</h2></p>
+<br>
+<p>How to particiapate:</p>
+<ol type="1">
+    <li><p>Download the train dataset <a href="{{ url_for('dntrainset') }}">here</a>. The dataset can be read with:</p></li>
+    <pre>
+        with open('trainset.pickle', 'rb') as f:
+            data = pickle.load(f)
+          
+        X = data['X']
+        y = data['Y']
+
+        # convert one_hot to categorical for scikit-learn
+        y = np.argmax(y, axis=1)    
+    </pre>
+    <li><p></p>Train a model with this dataset</p></li>
+    <li><p>Submit <a href="{{ url_for('home') }}">here</a> a trained model. Supported models are:</p>
+        <ul>
+          <li>
+            scikit-learn in pickle format:          
+            <pre>
+              model = LogisticRegression()
+              model.fit(X, y)
+              with open('model.pickle', 'wb') as f:
+                  pickle.dump(model, f)
+            </pre>
+          <li>
+            keras model in <a href="https://keras.io/guides/serialization_and_saving/">
+            Keras v3 *.keras or old *.h5 (hdf5)</a> format.
+            <br><br>
+          </li>
+      </ul>
+    <li><p>Watch it running <a href="{{ url_for('home') }}">here</a> and check its rank.</p></li>
+  </ol> 
+
+<br>
+
+<small>
+<p></p><a href="mailto:hdaniel@ualg.pt">hdaniel@ualg.pt</a></p>
+<p></p><a href="mailto:jvo@ualg.pt">jvo@ualg.pt</a></p>
+</small>
+
+{% endblock %}

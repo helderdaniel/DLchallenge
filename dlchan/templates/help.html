@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Help
+{% endblock %}
+
+{% block content %}
+<br>
+<h2>The Deep Learning classifier challenge</h2></p>
+<br>
+<div class="intro" style="display:grid;grid-template-columns: 2fr 1fr">
+  <div class="introText"> <!-- style="width:60%; float: left; margin-right: 20px;"> -->
+  <p>Some wind turbines drivetrain faults can be identified analysing signals recorded from accelerometers in each of the 3D axis: X, Y and Z.</p>
+  <p>You are challenged to develop a model that identifies each of the 7 fault classes induced in a turbine drivetrain.</p>
+  <p>The model, <a href="{{ url_for('howto') }}"> defined in scikit-learn or Keras format</a>
+  can be submitted here to be evaluated and ranked against other models.</p>
+  <p>To train the model a dataset is available <a href="{{ url_for('dntrainset') }}">here.</a></p>
+  </div>
+  <div class="introFig" >
+  <figure>
+    <img src="{{ url_for('static', filename='images/drivetrain.png') }}" alt="drivetrain" style="width:50%">
+    <!-- <figcaption>Fig.1 - wind trubine drivetrain</figcaption>
+    -->
+  </figure>
+  </div>
+</div>
+
+<div style="text-align: justify;width: 80%;">
+<p>The train dataset has a set of samples, each sample with information from 20 seconds of turbine operation recorded by a 3D accelerometer setup on the drivetrain.</p>
+<p>The dataset is stored in pickle format, with 2 variables: X and y. The X variable is a Numpy array with dimension Nx6000, where N is the number of samples, each with 6000 points. The first 2000 points are from accelerometer channel 0, the x-axis accelerometer, the next 2000 points from channel 1, the y-axis and the last from channel 2, the z-axis:</p>
+<p style="text-align:center;">
+<img src="{{ url_for('static', filename='images/dataLayout.png') }}" alt="dataLayout">
+</p>
+
+<p>The y variable is also a Numpy array with dimension Nx7. For each sample there is an element in y, where the 7 fault classes are one hot encoded.</p>
+
+<p>This layout, as is stored in the file, is suitable for a 1D model. For 2 D models different layouts can be formed after loading the data. For instance, data from accelerometer channels x,y and z can be stacked:</p>
+<p style="text-align:center;">
+<img src="{{ url_for('static', filename='images/dataLayoutStacked.png') }}" alt="dataLayout">
+</p>
+<p>To load a dataset from a file, say 'dataset.pickle', the following code snippet can be used:</p>
+<pre>
+	import pickle, numpy
+	from numpy.typing import NDArray
+
+	fname = 'dataset.pickle'
+
+	with open(fname, 'rb') as f:
+	    X : NDArray = pickle.load(f)
+	    y : NDArray = pickle.load(f)
+
+	print("Number of samples:",     X.shape[0]) # or y.shape[0]
+	print("Points in each sample:", X.shape[1])
+	print("Fault classes:",         y.shape[1])
+</pre>
+</div>
+
+<style>
+.body-content {
+  height:  160vh; /* to fill full height */
+}
+</style>
+
+{% endblock %}

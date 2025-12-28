@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+<!-- load components from web -->
+<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+-->
+<!-- load components from static folder -->
+<script type=text/javascript src="{{ url_for('static', filename='js/jquery-1.11.2.min.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+
+{% endblock %}
+
+{% block content %}
+<div class="colLeft">
+    {% include "timeleft.html" %}
+    {% include "running.html" %}
+    {% include "waiting.html" %}
+    {% include "upload.html" %}
+</div>
+<div class="colRight">
+    {% include "ranking.html" %}
+</div>
+{% endblock %}

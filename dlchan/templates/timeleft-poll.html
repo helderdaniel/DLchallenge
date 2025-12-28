@@ -1,0 +1,21 @@
+<div class="timeleft">
+    <div id="time" style="float:left"></div>
+    <div id="set"  style="float:right"></div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    function updateTime() {
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $.getJSON($SCRIPT_ROOT+"/_time",
+            function(data) {
+                $("#time").text("Time-left: " + data.time);
+                $("#set").text(data.set);
+                //document.getElementById("time").innerHTML = "Time left: " + "00:00:00";
+                //document.getElementById("set").innerHTML = "set";
+                updateTime();
+            });
+    }
+    //setInterval(updateTime, 1000);
+    setTimeout(updateTime, 30000);  //re-request if timedout (connection lost)
+    updateTime();
+</script>

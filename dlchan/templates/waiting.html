@@ -1,0 +1,25 @@
+<div class="waiting">
+    <div style="float:left; width:20%">Waiting:</div>
+    <div>
+        <table id="queue" align="left">
+        </table>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    function updateTable() {
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        const tWait = document.getElementById("queue");
+        $.getJSON($SCRIPT_ROOT+"/_waiters",
+            function(data) {
+                tWait.innerHTML = '';       //clear rows from previous call
+                data.waiters.forEach( waiter => {
+                    let row = tWait.insertRow();
+                    let tag = row.insertCell(0);
+                    tag.innerHTML = waiter;
+                    });
+            });
+    }
+    setInterval(updateTable, 250);
+</script>
+

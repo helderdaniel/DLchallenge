@@ -1,0 +1,20 @@
+<div class="timeleft">
+    <div id="time" style="float:left"></div>
+    <div id="set"  style="float:right"></div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    function updateTime() {
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $.getJSON($SCRIPT_ROOT+"/_timeleft",
+            function(data) {
+                $("#time").text("Time-left: " + data.time)
+                $("#set").text(data.set)
+                //document.getElementById("time").innerHTML = "Time left: " + "00:00:00";
+                //document.getElementById("set").innerHTML = "set";
+            });
+    }
+    setInterval(updateTime, 1000);
+    //Not working here: setTimeout(updateTime, 3000);
+    //https://stackoverflow.com/questions/24494805/ajax-interval-refresh
+</script>

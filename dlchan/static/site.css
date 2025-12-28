@@ -1,0 +1,203 @@
+
+.navbar {
+  background-color: rgb(10, 164, 175);
+  font-size: 1em;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: white;
+  padding: 8px 20px 8px 5px;
+
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+  border-radius: 2px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.navbar-item {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-left: 10px;
+
+  color: #f5f5f5;
+  text-shadow: 
+        1px 1px 1px #919191,
+        1px 2px 1px #919191;
+}
+
+.navbar-image {
+  height: 20px;
+  float: right;
+  vertical-align:middle;
+
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+  border-radius: 2px;
+}
+
+
+.body-content {
+  /*min-height: 500px;*/
+  height:  100vh; /* to fill full Home height */
+  background-color: rgb(221, 217, 207);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  min-width:1000px;
+  /*min-height:600px;*/
+
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+  border-radius: 2px;
+}
+
+/*Main page columns */
+.colLeft {
+    float: left;
+    padding: 10px;
+    padding-top: 10px;
+    width: 45%;
+  }
+
+.colRight {
+    float: right;
+    padding: 10px;
+    padding-top: 10px;
+    width: 50%;
+}
+
+.timeleft {
+    height:40px;
+
+    color: #c54408;
+    font-weight: 600;
+    
+    text-shadow: 
+        1px 1px 1px #919191; /*,
+        1px 2px 1px #919191;*/
+}
+
+.running {
+    background-color:rgb(236, 218, 169);
+    padding: 20px 5px;
+    padding-top: 10px;
+    min-height:330px;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+    border-radius: 15px;
+
+    font-size: 1em;
+    font-weight: 600;
+    color: #073d69;
+}
+
+#runTitle {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #248be0;
+}
+
+.running .runPerf {
+  /* color: rgb(64, 165, 64); */
+  color: rgba(214, 108, 9, 0.9);
+  float:right;
+}
+
+/* Progress bar, the course or track to run */
+#trackbar {
+    width:  100%;
+    height: 20px;
+    /* need to set height or other properties */
+    /* -webkit-appearance: none; /* Disable Chrome/brave appearence */
+    /* -moz-appearance: none;    /* Disable Firefox appearence */
+    /* appearance: none;         /* Disable appearence for other browsers */
+
+    /*
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+    border-radius: 15px;
+    */
+}
+#trackchart {
+    background-color:rgb(225, 230, 225);
+    box-shadow: inset 3px 3px 6px rgba(0,0,0,0.16), inset 4px 4px 6px rgba(0,0,0,0.45);
+    border-radius: 5px;
+}
+#counter {
+    font-size: 0.5em;
+    float:right;
+  }
+
+
+  /*
+script{
+    display:block;
+    padding:80px;
+    background-color:red;
+}*/
+input {
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+    border-radius: 5px;
+}
+
+.upload {
+    padding-top: 10px;
+}
+
+.waiting {
+  background-color: rgb(162, 193, 201);
+  padding: 5px;
+  margin-top: 10px;
+  height:75px;
+  /*border-width: 5px;
+  border-style: ridge;
+  Border-color: #139207*/
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+  border-radius: 5px;
+
+  font-size: 1em;
+  font-weight: 600;
+  color: #073d69;
+}
+
+.ranking {
+    background-color:#bbbbbb;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+    border-radius: 5px;
+}
+
+.ranking .tableHead {
+    color:rgb(7, 28, 119);
+    padding: 10px;
+    font-weight: 600;
+}
+.name {
+    width:35%;
+}
+
+.ranking .tableRow {
+    
+    color:rgb(12, 23, 78);
+}
+.name {
+    width:35%;
+}
+
+@keyframes flasher {
+  from  { background-color: inherit; }
+  to    { background-color: #ffb606; }
+  
+}
+
+.message {
+    font-size: 0.6em;
+    font: bold;
+}
+
+
+.footer {
+    font-size: 0.7em;
+    padding: 10px 10px 10px 10px;
+    width: 97%;
+    position: fixed;
+    bottom: 0;
+}

@@ -1,0 +1,107 @@
+<div class="running">
+    <div style="height:2em">
+        <div style="float:left">Running:</div>
+        <div style="float:right" id="tag"></div>
+    </div>
+    <div><canvas id="trackchart"></canvas></div>
+    <div id="counter"></div>
+    <br>
+    <div style="width:60%">
+        <div style="float:left">Live accuracy (%):</div>
+        <div id="acc" class="runPerf"></div>
+        <br>
+        <div style="float:left">Live position:</div>
+        <div id="pos" class="runPerf"></div>        
+    </div>
+</div>
+
+
+<script language="javascript" type="text/javascript">
+    const labels = [...Array(100).keys()];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Top rank',
+            order: 2,
+            data: [],
+            borderColor: 'rgba(75, 192, 192, 1.0)',
+            pointRadius: 0, 
+            tension: 0.1,
+            },
+            {
+            label: 'runner',
+            order: 1,
+            data: [],
+            borderColor: "rgba(214, 108, 9, 0.9)",
+            pointRadius: 0, 
+            tension: 0.1,
+            }]
+        };
+
+    const config = {
+        type: 'scatter',
+        data: data,
+        options: {
+            responsive: true,
+            showLine: true,
+            animation: {
+                duration: 0
+            },
+            scales: {
+            y: {
+                //min: 0,
+                //max: 1.0
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+            }
+        }
+    };
+
+    runChart = new Chart(document.getElementById('trackchart'), config);
+
+    function updateTime() {
+        
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $.getJSON($SCRIPT_ROOT+"/_running",
+            function(data) {
+                /*
+                Update chart only if there is new data available
+                update the whole chart in each request to allow
+                multiple browser access to server with no data mixing, 
+                since no state exist in the browser
+                */
+                if (data.acc.length > 0) {
+                    acc = data.acc[data.acc.length-1][1].toFixed(5)
+
+                    $("#tag").text(data.tag)
+                    $("#counter").text(data.batches)
+                    $("#acc").text(acc)
+                    $("#pos").text(data.position)
+
+                    //update top runner and names
+                    runChart.data.datasets[0].label = data.topName
+                    runChart.data.datasets[0].data  = data.topHist
+                    runChart.data.datasets[1].label = data.tag
+
+                    //Current runner
+                    /*
+                    //Append new data
+                    //This may introduce sync hazards with multiple browsers
+                    data.prog.forEach(point => {
+                        runChart.data.datasets[1].data.push(point)
+                    });
+                    */
+                    runChart.data.datasets[1].data = data.acc
+
+                    runChart.update();
+                    //console.log('acc', data.acc)
+                }
+            });
+    }
+    setInterval(updateTime, 100);
+    
+</script>

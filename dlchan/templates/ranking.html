@@ -1,0 +1,61 @@
+<div id="ranking" class="ranking">
+    <table align="center">
+        <thead>
+            <tr>
+                <td align="center" class="tableHead">rank</td>
+                <td align="center" class="tableHead name">runner</td>
+                <td align="center" class="tableHead">accuracy (%)</td>
+                <td align="center" class="tableHead">parameters</td>
+            </tr>
+        </thead>
+        <tbody id="score">
+        </tbody>
+    </table> 
+</div>
+
+<script language="javascript" type="text/javascript">
+    function updateTable() {
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        const tScore = document.getElementById('ranking').getElementsByTagName('tbody')[0];
+        //or: const tScore = document.getElementById("score");
+        const altColor = 'rgb(204,204,204)';
+        $.getJSON($SCRIPT_ROOT+"/_ranking",
+            function(data) {
+                tScore.innerHTML = '';       //clear rows from previous call
+                var x = 1
+                data.rank.forEach( rank => {
+                    let row = tScore.insertRow();
+
+                    //right to left order
+                    let param = row.insertCell(0);
+                    param.innerHTML = rank[2];          //parameters
+                    param.style.textAlign = "center";
+
+                    let acc = row.insertCell(0);
+                    acc.innerHTML = rank[1];            //accuracy
+                    acc.style.textAlign = "center";
+
+                    let name = row.insertCell(0);
+                    name.innerHTML = rank[0];           //name
+                    name.style.textAlign = "left";
+
+                    let pos = row.insertCell(0);        // position
+                    pos.innerHTML = x;
+                    pos.style.textAlign = "center";
+
+                    //Set gray bar background
+                    if (x % 2 == 1) {
+                        row.style.background = altColor;
+                    }
+
+                    //flash
+                    if (x == data.highlight) {
+                        row.style.animation="flasher 1s ease 3";
+                    }
+
+                    x = x + 1
+                    });
+            });
+    }
+    setInterval(updateTable, 1000);
+</script>

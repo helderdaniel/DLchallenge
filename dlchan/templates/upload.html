@@ -1,0 +1,41 @@
+<div id="upload" class="upload">
+
+    <!-- drag to upload -->
+    <!-- load components from web -->
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+    -->
+    <!-- load components from static folder -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/dropzone/dropzone.min.css') }}">
+    <script type=text/javascript src="{{ url_for('static', filename='js/dropzone/dropzone.min.js') }}"></script>
+
+    <form action="{{ url_for('upload') }}" class="dropzone" id="droparea"></form>
+    
+    <script type="text/javascript">
+        Dropzone.options.droparea = {
+            autoProcessQueue: true,
+            init: function() {
+                this.element.querySelector(".dz-message").textContent = "Drop file here or click to upload";
+                this.on("complete", function(file) {
+                    setTimeout(() => {
+                        this.removeFile(file);
+                    }, 1000);   //remove file thumbnail from drop area 1 second after upload ended
+                });
+            }
+        };
+    </script>
+
+    <!-- choose to upload -->
+    <!-- Disabled, because this button forces the page to redraw
+         better to click in dropzone
+    <form action = "" method = "POST" 
+    enctype = "multipart/form-data">
+    <input type = "file" name = "file"/>
+    <input type = "submit" value="upload"/>
+    </form>
+    -->
+
+    <!-- upload status, no error inspite of linker reports it -->
+    <span style="color: {{ color }}" class="message">{{ msg }} {{ date }}</span>
+</div>

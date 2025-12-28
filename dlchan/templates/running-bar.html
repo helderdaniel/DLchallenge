@@ -1,0 +1,32 @@
+<div class="running">
+    <div style="height:2em">
+        <div style="float:left">Running:</div>
+        <div style="float:right" id="tag"></div>
+    </div>
+    <br>
+    <div><progress id="track"  max="100"></progress></div>
+    <div id="counter"></div>
+    <br>
+    <div style="width:60%">
+        <div style="float:left">Live accuracy (%):</div>
+        <div id="acc" class="runPerf"></div>
+        <br>
+        <div style="float:left">Live position:</div>
+        <div id="pos" class="runPerf"></div>        
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript">
+    function updateTime() {
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $.getJSON($SCRIPT_ROOT+"/_running",
+            function(data) {
+                $("#tag").text(data.tag)
+                $("#track").prop("value", data.prog); 
+                $("#counter").text(data.batches)
+                $("#acc").text(data.acc)
+                $("#pos").text(data.position)
+            });
+    }
+    setInterval(updateTime, 250);
+</script>

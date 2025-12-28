@@ -1,0 +1,60 @@
+Logging and queue:
+https://stackoverflow.com/questions/30135091/write-thread-safe-to-file-in-python
+
+
+Use logging to write file thread-safe:
+https://docs.python.org/2/library/logging.html
+https://stackoverflow.com/questions/14257881/how-can-i-safely-write-to-a-file-when-using-flask
+
+
+use locking:
+import threading
+
+lock = threading.Lock()
+...
+
+with lock:
+    #Open the file and write to it
+
+
+
+memcache
+https://realpython.com/python-memcache-efficient-caching/
+
+Flask-Caching (on filesystem):
+https://flask-caching.readthedocs.io/en/latest/index.html
+
+https://stackoverflow.com/questions/32815451/are-global-variables-thread-safe-in-flask-how-do-i-share-data-between-requests
+
+
+
+1. Create a file common.py and place in it the following:
+
+from flask_caching import Cache
+
+# Instantiate the cache
+cache = Cache()
+
+
+2. In the file where your flask app is created, register your cache with the following code:
+
+# Import cache
+from common import cache
+
+# ...
+app = Flask(__name__)
+
+cache.init_app(app=app, config={"CACHE_TYPE": "filesystem",'CACHE_DIR': Path('/tmp')})
+
+
+3. Now use throughout your application by importing the cache and executing as follows:
+
+# Import cache
+from common import cache
+
+# store a value
+cache.set("my_value", 1_000_000)
+
+# Get a value
+my_value = cache.get("my_value")
+
